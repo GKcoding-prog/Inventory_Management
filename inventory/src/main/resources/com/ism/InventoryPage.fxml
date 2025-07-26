@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="TOP_CENTER" spacing="30.0" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e0eafc);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ism.controllers.InventoryPageController">
+<VBox alignment="TOP_CENTER" spacing="30.0" style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e0eafc);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ism.controllers.InventoryPageController">
   <children>
     <Label text="Inventory Overview" textFill="#2e2e2e" style="-fx-font-weight: bold;">
       <font>
@@ -18,7 +18,7 @@
         <DropShadow color="#b0c4de" radius="4" />
       </effect>
     </Label>
-    <TableView fx:id="inventoryTable" prefWidth="700.0" prefHeight="300.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #b0c4de; -fx-table-cell-border-color: #e0eafc;">
+    <TableView fx:id="inventoryTable" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #b0c4de; -fx-table-cell-border-color: #e0eafc;">
       <columns>
         <TableColumn fx:id="colName" text="Product Name" prefWidth="220.0" />
         <TableColumn fx:id="colCategory" text="Category" prefWidth="160.0" />

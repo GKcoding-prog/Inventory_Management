@@ -31,6 +31,23 @@ public class CategoryDAO {
         }
     }
 
+    public void updateCategory(Category category) throws SQLException {
+        String sql = "UPDATE CATEGORY SET NAME_CAT = ? WHERE CAT_ID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, category.getNameCat());
+            stmt.setLong(2, category.getCatId());
+            stmt.executeUpdate();
+        }
+    }
+
+    public void deleteCategory(long catId) throws SQLException {
+        String sql = "DELETE FROM CATEGORY WHERE CAT_ID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, catId);
+            stmt.executeUpdate();
+        }
+    }
+
     public List<Category> getAllCategories() throws SQLException {
         String sql = "SELECT * FROM CATEGORY";
         List<Category> categories = new ArrayList<>();

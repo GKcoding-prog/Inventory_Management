@@ -28,6 +28,11 @@ public class BossDashboardController {
             javafx.stage.Stage stage = (javafx.stage.Stage) inventoryBtn.getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(root));
         } catch (Exception ex) {
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+            alert.setTitle("Navigation Error");
+            alert.setHeaderText("Failed to load page: " + fxml);
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
             System.out.println("BossDashboardController: Navigation error: " + ex.getMessage());
         }
     }

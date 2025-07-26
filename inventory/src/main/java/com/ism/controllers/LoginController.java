@@ -52,21 +52,7 @@ public class LoginController {
             if (user != null) {
                 System.out.println("LoginController: userId=" + user.getUserId() + ", role=" + user.getRole() + ", email=" + user.getEmail());
                 com.ism.controllers.ProfilePageController.setCurrentUser(user);
-                String dashboardFXML;
-                switch (user.getRole()) {
-                    case "Boss":
-                        dashboardFXML = "/com/ism/BossDashboard.fxml";
-                        break;
-                    case "Employee":
-                        dashboardFXML = "/com/ism/EmployeeDashboard.fxml";
-                        break;
-                    case "Supplier":
-                        dashboardFXML = "/com/ism/SupplierDashboard.fxml";
-                        break;
-                    default:
-                        dashboardFXML = "/com/ism/HomePage.fxml";
-                        break;
-                }
+                String dashboardFXML = "/com/ism/BossDashboard.fxml";
                 try {
                     javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource(dashboardFXML));
                     javafx.scene.Parent root = loader.load();

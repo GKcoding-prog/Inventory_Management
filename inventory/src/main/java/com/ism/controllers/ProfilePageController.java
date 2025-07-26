@@ -44,4 +44,9 @@ public class ProfilePageController {
             e.printStackTrace();
         }
     }
+
+    public static Object getCurrentUser() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCurrentUser'");
+    }
 }
