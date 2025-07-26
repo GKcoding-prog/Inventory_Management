@@ -17,14 +17,20 @@ public class ProductDAO {
     }
 
     public void addProduct(Product product) throws SQLException {
-        String sql = "INSERT INTO PRODUCTS (PRODUCT_ID, CAT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setLong(1, product.getProductId());
-            stmt.setLong(2, product.getCategoryId());
-            stmt.setString(3, product.getProductName());
-            stmt.setDouble(4, product.getProductPrice());
-            stmt.setLong(5, product.getProductQuantity());
+        String sql = "INSERT INTO PRODUCTS (CAT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmt.setLong(1, product.getCategoryId());
+            stmt.setString(2, product.getProductName());
+            stmt.setDouble(3, product.getProductPrice());
+            stmt.setLong(4, product.getProductQuantity());
             int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        product.setProductId(generatedKeys.getLong(1));
+                    }
+                }
+            }
             System.out.println("Product added successfully. Rows inserted: " + rowsInserted);
         }
     }
@@ -45,5 +51,27 @@ public class ProductDAO {
             }
         }
         return products;
+    }
+
+    public void updateProduct(Product product) throws SQLException {
+        String sql = "UPDATE PRODUCTS SET CAT_ID = ?, PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_QUANTITY = ? WHERE PRODUCT_ID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, product.getCategoryId());
+            stmt.setString(2, product.getProductName());
+            stmt.setDouble(3, product.getProductPrice());
+            stmt.setLong(4, product.getProductQuantity());
+            stmt.setLong(5, product.getProductId());
+            int rowsUpdated = stmt.executeUpdate();
+            System.out.println("Product updated successfully. Rows updated: " + rowsUpdated);
+        }
+    }
+
+    public void deleteProduct(long productId) throws SQLException {
+        String sql = "DELETE FROM PRODUCTS WHERE PRODUCT_ID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, productId);
+            int rowsDeleted = stmt.executeUpdate();
+            System.out.println("Product deleted successfully. Rows deleted: " + rowsDeleted);
+        }
     }
 }

@@ -33,6 +33,9 @@ public class InventoryPageController {
     @FXML private TableColumn<ProductRow, Integer> colQuantity;
     @FXML private TableColumn<ProductRow, String> colSupplier;
     @FXML private Button returnBtn;
+    @FXML private Button addBtn;
+    @FXML private Button editBtn;
+    @FXML private Button deleteBtn;
 
     @FXML
     private void initialize() {
@@ -42,6 +45,9 @@ public class InventoryPageController {
         colSupplier.setCellValueFactory(new PropertyValueFactory<>("supplier"));
         inventoryTable.setItems(getRealData());
         returnBtn.setOnAction(e -> returnToHome());
+        addBtn.setOnAction(e -> handleAddProduct());
+        editBtn.setOnAction(e -> handleEditProduct());
+        deleteBtn.setOnAction(e -> handleDeleteProduct());
     }
 
     private ObservableList<ProductRow> getRealData() {
@@ -72,10 +78,75 @@ public class InventoryPageController {
         return data;
     }
 
+    private void handleAddProduct() {
+        ProductFormDialog dialog = new ProductFormDialog(null);
+        dialog.showAndWait().ifPresent(product -> {
+            try (Connection conn = DBConnect.getConnection()) {
+                ProductDAO dao = new ProductDAO(conn);
+                dao.addProduct(product); // productId will be set by DB
+                inventoryTable.setItems(getRealData());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
+
+    private void handleEditProduct() {
+        ProductRow selected = inventoryTable.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+        Product product = getProductByRow(selected);
+        if (product == null) return;
+        ProductFormDialog dialog = new ProductFormDialog(product);
+        dialog.showAndWait().ifPresent(updatedProduct -> {
+            try (Connection conn = DBConnect.getConnection()) {
+                ProductDAO dao = new ProductDAO(conn);
+                dao.updateProduct(updatedProduct);
+                inventoryTable.setItems(getRealData());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
+
+    private void handleDeleteProduct() {
+        ProductRow selected = inventoryTable.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+        Product product = getProductByRow(selected);
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Product");
+        alert.setHeaderText("Are you sure you want to delete this product?");
+        alert.setContentText(selected.getName());
+        alert.showAndWait().ifPresent(response -> {
+            if (response == javafx.scene.control.ButtonType.OK) {
+                try (Connection conn = DBConnect.getConnection()) {
+                    ProductDAO dao = new ProductDAO(conn);
+                    dao.deleteProduct(product.getProductId());
+                    inventoryTable.setItems(getRealData());
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private Product getProductByRow(ProductRow row) {
+        try (Connection conn = DBConnect.getConnection()) {
+            ProductDAO dao = new ProductDAO(conn);
+            for (Product p : dao.getAllProducts()) {
+                if (p.getProductName().equals(row.getName())) {
+                    return p;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     private void returnToHome() {
         try {
             Stage stage = (Stage) returnBtn.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/ism/HomePage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/ism/EmployeeDashboard.fxml"));
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();

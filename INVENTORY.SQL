@@ -1,224 +1,288 @@
-DROP DATABASE IF EXISTS inventory_system;
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jul 26, 2025 at 01:04 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
-CREATE DATABASE IF NOT EXISTS inventory_system;
-USE inventory_system;
-# -----------------------------------------------------------------------------
-#       TABLE : REPORT
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS REPORT
- (
-   REPORT_ID BIGINT(4) NOT NULL  ,
-   USER_ID BIGINT(4) NOT NULL  ,
-   GENERATED_AT DATE NOT NULL  ,
-   CONTENT VARCHAR(255) NOT NULL  
-   , PRIMARY KEY (REPORT_ID) 
- ) 
- comment = "";
-
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE REPORT
-# -----------------------------------------------------------------------------
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
-CREATE  INDEX I_FK_REPORT_USERS
-     ON REPORT (USER_ID ASC);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-# -----------------------------------------------------------------------------
-#       TABLE : PRODUCTS
-# -----------------------------------------------------------------------------
+--
+-- Database: `inventory_system`
+--
 
-CREATE TABLE IF NOT EXISTS PRODUCTS
- (
-   PRODUCT_ID BIGINT(4) NOT NULL  ,
-   CAT_ID BIGINT(4) NOT NULL  ,
-   PRODUCT_NAME VARCHAR(255) NOT NULL  ,
-   PRODUCT_PRICE DECIMAL(13,2) NOT NULL  ,
-   PRODUCT_QUANTITY BIGINT(4) NOT NULL  
-   , PRIMARY KEY (PRODUCT_ID) 
- ) 
- comment = "";
+-- --------------------------------------------------------
 
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE PRODUCTS
-# -----------------------------------------------------------------------------
+--
+-- Table structure for table `appear`
+--
 
+CREATE TABLE `appear` (
+  `PRODUCT_ID` bigint(4) NOT NULL,
+  `REQ_ID` bigint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE  INDEX I_FK_PRODUCTS_CATEGORY
-     ON PRODUCTS (CAT_ID ASC);
+-- --------------------------------------------------------
 
-# -----------------------------------------------------------------------------
-#       TABLE : STOCKREQUEST
-# -----------------------------------------------------------------------------
+--
+-- Table structure for table `category`
+--
 
-CREATE TABLE IF NOT EXISTS STOCKREQUEST
- (
-   REQ_ID BIGINT(4) NOT NULL  ,
-   SUPPLIER_ID BIGINT(4) NOT NULL  ,
-   USER_ID BIGINT(4) NOT NULL  ,
-   QUANTITY_REQ BIGINT(4) NOT NULL  ,
-   PRODUCT_REQ VARCHAR(255) NOT NULL  ,
-   DATE_REQ DATE NOT NULL  
-   , PRIMARY KEY (REQ_ID) 
- ) 
- comment = "";
+CREATE TABLE `category` (
+  `CAT_ID` bigint(4) NOT NULL,
+  `NAME_CAT` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE STOCKREQUEST
-# -----------------------------------------------------------------------------
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `deliver`
+--
 
-CREATE  INDEX I_FK_STOCKREQUEST_SUPPLIER
-     ON STOCKREQUEST (SUPPLIER_ID ASC);
+CREATE TABLE `deliver` (
+  `PRODUCT_ID` bigint(4) NOT NULL,
+  `SUPPLIER_ID` bigint(4) NOT NULL,
+  `DELIVERY_DATE` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE  INDEX I_FK_STOCKREQUEST_USERS
-     ON STOCKREQUEST (USER_ID ASC);
+-- --------------------------------------------------------
 
-# -----------------------------------------------------------------------------
-#       TABLE : CATEGORY
-# -----------------------------------------------------------------------------
+--
+-- Table structure for table `products`
+--
 
-CREATE TABLE IF NOT EXISTS CATEGORY
- (
-   CAT_ID BIGINT(4) NOT NULL  ,
-   NAME_CAT VARCHAR(255) NOT NULL  
-   , PRIMARY KEY (CAT_ID) 
- ) 
- comment = "";
+CREATE TABLE `products` (
+  `PRODUCT_ID` bigint(4) NOT NULL,
+  `CAT_ID` bigint(4) NOT NULL,
+  `PRODUCT_NAME` varchar(255) NOT NULL,
+  `PRODUCT_PRICE` decimal(13,2) NOT NULL,
+  `PRODUCT_QUANTITY` bigint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-# -----------------------------------------------------------------------------
-#       TABLE : USERS
-# -----------------------------------------------------------------------------
+-- --------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS USERS
- (
-   USER_ID BIGINT(4) NOT NULL  ,
-   USER_ID_MANAGE BIGINT(4) NULL  ,
-   USER_FNAME VARCHAR(255) NOT NULL  ,
-   USER_PHONE VARCHAR(255) NOT NULL  ,
-   USER_EMAIL VARCHAR(255) NOT NULL  ,
-   USER_PWD VARCHAR(255) NOT NULL  ,
-   USER_ROLE VARCHAR(255) NOT NULL  ,
-   USER_STATUS VARCHAR(255) NOT NULL  
-   , PRIMARY KEY (USER_ID) 
- ) 
- comment = "";
+--
+-- Table structure for table `report`
+--
 
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE USERS
-# -----------------------------------------------------------------------------
+CREATE TABLE `report` (
+  `REPORT_ID` bigint(4) NOT NULL,
+  `USER_ID` bigint(4) NOT NULL,
+  `GENERATED_AT` date NOT NULL,
+  `CONTENT` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
 
-CREATE  INDEX I_FK_USERS_USERS
-     ON USERS (USER_ID_MANAGE ASC);
+--
+-- Table structure for table `stockrequest`
+--
 
-# -----------------------------------------------------------------------------
-#       TABLE : SUPPLIER
-# -----------------------------------------------------------------------------
+CREATE TABLE `stockrequest` (
+  `REQ_ID` bigint(4) NOT NULL,
+  `SUPPLIER_ID` bigint(4) NOT NULL,
+  `USER_ID` bigint(4) NOT NULL,
+  `QUANTITY_REQ` bigint(4) NOT NULL,
+  `PRODUCT_REQ` varchar(255) NOT NULL,
+  `DATE_REQ` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS SUPPLIER
- (
-   SUPPLIER_ID BIGINT(4) NOT NULL  ,
-   SUPPLIER_FNAME VARCHAR(255) NOT NULL  ,
-   CONTACT_INFO VARCHAR(255) NOT NULL  
-   , PRIMARY KEY (SUPPLIER_ID) 
- ) 
- comment = "";
+-- --------------------------------------------------------
 
-# -----------------------------------------------------------------------------
-#       TABLE : APPEAR
-# -----------------------------------------------------------------------------
+--
+-- Table structure for table `supplier`
+--
 
-CREATE TABLE IF NOT EXISTS APPEAR
- (
-   PRODUCT_ID BIGINT(4) NOT NULL  ,
-   REQ_ID BIGINT(4) NOT NULL  
-   , PRIMARY KEY (PRODUCT_ID,REQ_ID) 
- ) 
- comment = "";
+CREATE TABLE `supplier` (
+  `SUPPLIER_ID` bigint(4) NOT NULL,
+  `SUPPLIER_FNAME` varchar(255) NOT NULL,
+  `CONTACT_INFO` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE APPEAR
-# -----------------------------------------------------------------------------
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `users`
+--
 
-CREATE  INDEX I_FK_APPEAR_PRODUCTS
-     ON APPEAR (PRODUCT_ID ASC);
+CREATE TABLE `users` (
+  `USER_ID` bigint(4) NOT NULL,
+  `USER_ID_MANAGE` bigint(4) DEFAULT NULL,
+  `USER_FNAME` varchar(255) NOT NULL,
+  `USER_PHONE` varchar(255) NOT NULL,
+  `USER_EMAIL` varchar(255) NOT NULL,
+  `USER_PWD` varchar(255) NOT NULL,
+  `USER_ROLE` varchar(255) NOT NULL,
+  `USER_STATUS` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE  INDEX I_FK_APPEAR_STOCKREQUEST
-     ON APPEAR (REQ_ID ASC);
+--
+-- Indexes for dumped tables
+--
 
-# -----------------------------------------------------------------------------
-#       TABLE : DELIVER
-# -----------------------------------------------------------------------------
+--
+-- Indexes for table `appear`
+--
+ALTER TABLE `appear`
+  ADD PRIMARY KEY (`PRODUCT_ID`,`REQ_ID`),
+  ADD KEY `I_FK_APPEAR_PRODUCTS` (`PRODUCT_ID`),
+  ADD KEY `I_FK_APPEAR_STOCKREQUEST` (`REQ_ID`);
 
-CREATE TABLE IF NOT EXISTS DELIVER
- (
-   PRODUCT_ID BIGINT(4) NOT NULL  ,
-   SUPPLIER_ID BIGINT(4) NOT NULL  ,
-   DELIVERY_DATE DATE NOT NULL  
-   , PRIMARY KEY (PRODUCT_ID,SUPPLIER_ID) 
- ) 
- comment = "";
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`CAT_ID`);
 
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE DELIVER
-# -----------------------------------------------------------------------------
+--
+-- Indexes for table `deliver`
+--
+ALTER TABLE `deliver`
+  ADD PRIMARY KEY (`PRODUCT_ID`,`SUPPLIER_ID`),
+  ADD KEY `I_FK_DELIVER_PRODUCTS` (`PRODUCT_ID`),
+  ADD KEY `I_FK_DELIVER_SUPPLIER` (`SUPPLIER_ID`);
 
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`PRODUCT_ID`),
+  ADD KEY `I_FK_PRODUCTS_CATEGORY` (`CAT_ID`);
 
-CREATE  INDEX I_FK_DELIVER_PRODUCTS
-     ON DELIVER (PRODUCT_ID ASC);
+--
+-- Indexes for table `report`
+--
+ALTER TABLE `report`
+  ADD PRIMARY KEY (`REPORT_ID`),
+  ADD KEY `I_FK_REPORT_USERS` (`USER_ID`);
 
-CREATE  INDEX I_FK_DELIVER_SUPPLIER
-     ON DELIVER (SUPPLIER_ID ASC);
+--
+-- Indexes for table `stockrequest`
+--
+ALTER TABLE `stockrequest`
+  ADD PRIMARY KEY (`REQ_ID`),
+  ADD KEY `I_FK_STOCKREQUEST_SUPPLIER` (`SUPPLIER_ID`),
+  ADD KEY `I_FK_STOCKREQUEST_USERS` (`USER_ID`);
 
+--
+-- Indexes for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`SUPPLIER_ID`);
 
-# -----------------------------------------------------------------------------
-#       CREATION DES REFERENCES DE TABLE
-# -----------------------------------------------------------------------------
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`USER_ID`),
+  ADD KEY `I_FK_USERS_USERS` (`USER_ID_MANAGE`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
 
-ALTER TABLE REPORT 
-  ADD FOREIGN KEY FK_REPORT_USERS (USER_ID)
-      REFERENCES USERS (USER_ID) ;
+--
+-- AUTO_INCREMENT for table `appear`
+--
+ALTER TABLE `appear`
+  MODIFY `PRODUCT_ID` bigint(4) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `CAT_ID` bigint(4) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE PRODUCTS 
-  ADD FOREIGN KEY FK_PRODUCTS_CATEGORY (CAT_ID)
-      REFERENCES CATEGORY (CAT_ID) ;
+--
+-- AUTO_INCREMENT for table `deliver`
+--
+ALTER TABLE `deliver`
+  MODIFY `PRODUCT_ID` bigint(4) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `PRODUCT_ID` bigint(4) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE STOCKREQUEST 
-  ADD FOREIGN KEY FK_STOCKREQUEST_SUPPLIER (SUPPLIER_ID)
-      REFERENCES SUPPLIER (SUPPLIER_ID) ;
+--
+-- AUTO_INCREMENT for table `report`
+--
+ALTER TABLE `report`
+  MODIFY `REPORT_ID` bigint(4) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `stockrequest`
+--
+ALTER TABLE `stockrequest`
+  MODIFY `REQ_ID` bigint(4) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE STOCKREQUEST 
-  ADD FOREIGN KEY FK_STOCKREQUEST_USERS (USER_ID)
-      REFERENCES USERS (USER_ID) ;
+--
+-- AUTO_INCREMENT for table `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `SUPPLIER_ID` bigint(4) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `USER_ID` bigint(4) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE USERS 
-  ADD FOREIGN KEY FK_USERS_USERS (USER_ID_MANAGE)
-      REFERENCES USERS (USER_ID) ;
+--
+-- Constraints for dumped tables
+--
 
+--
+-- Constraints for table `appear`
+--
+ALTER TABLE `appear`
+  ADD CONSTRAINT `FK_APPEAR_PRODUCTS` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `products` (`PRODUCT_ID`),
+  ADD CONSTRAINT `FK_APPEAR_STOCKREQUEST` FOREIGN KEY (`REQ_ID`) REFERENCES `stockrequest` (`REQ_ID`);
 
-ALTER TABLE APPEAR 
-  ADD FOREIGN KEY FK_APPEAR_PRODUCTS (PRODUCT_ID)
-      REFERENCES PRODUCTS (PRODUCT_ID) ;
+--
+-- Constraints for table `deliver`
+--
+ALTER TABLE `deliver`
+  ADD CONSTRAINT `FK_DELIVER_PRODUCTS` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `products` (`PRODUCT_ID`),
+  ADD CONSTRAINT `FK_DELIVER_SUPPLIER` FOREIGN KEY (`SUPPLIER_ID`) REFERENCES `supplier` (`SUPPLIER_ID`);
 
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `FK_PRODUCTS_CATEGORY` FOREIGN KEY (`CAT_ID`) REFERENCES `category` (`CAT_ID`);
 
-ALTER TABLE APPEAR 
-  ADD FOREIGN KEY FK_APPEAR_STOCKREQUEST (REQ_ID)
-      REFERENCES STOCKREQUEST (REQ_ID) ;
+--
+-- Constraints for table `report`
+--
+ALTER TABLE `report`
+  ADD CONSTRAINT `FK_REPORT_USERS` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`USER_ID`);
 
+--
+-- Constraints for table `stockrequest`
+--
+ALTER TABLE `stockrequest`
+  ADD CONSTRAINT `FK_STOCKREQUEST_SUPPLIER` FOREIGN KEY (`SUPPLIER_ID`) REFERENCES `supplier` (`SUPPLIER_ID`),
+  ADD CONSTRAINT `FK_STOCKREQUEST_USERS` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`USER_ID`);
 
-ALTER TABLE DELIVER 
-  ADD FOREIGN KEY FK_DELIVER_PRODUCTS (PRODUCT_ID)
-      REFERENCES PRODUCTS (PRODUCT_ID) ;
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `FK_USERS_USERS` FOREIGN KEY (`USER_ID_MANAGE`) REFERENCES `users` (`USER_ID`);
+COMMIT;
 
-
-ALTER TABLE DELIVER 
-  ADD FOREIGN KEY FK_DELIVER_SUPPLIER (SUPPLIER_ID)
-      REFERENCES SUPPLIER (SUPPLIER_ID) ;
-
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

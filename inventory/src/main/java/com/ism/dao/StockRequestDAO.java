@@ -12,16 +12,22 @@ public class StockRequestDAO {
         this.connection = connection;
     }
 
-    public void addStockRequest(StockRequest req) throws SQLException {
-        String sql = "INSERT INTO STOCKREQUEST (REQ_ID, SUPPLIER_ID, USER_ID, QUANTITY_REQ, PRODUCT_REQ, DATE_REQ) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setLong(1, req.getReqId());
-            stmt.setLong(2, req.getSupplierId());
-            stmt.setLong(3, req.getUserId());
-            stmt.setLong(4, req.getQuantityReq());
-            stmt.setString(5, req.getProductReq());
-            stmt.setDate(6, new java.sql.Date(req.getDateReq().getTime()));
-            stmt.executeUpdate();
+    public void addStockRequest(StockRequest request) throws SQLException {
+        String sql = "INSERT INTO STOCKREQUEST (SUPPLIER_ID, USER_ID, QUANTITY_REQ, PRODUCT_REQ, DATE_REQ) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmt.setLong(1, request.getSupplierId());
+            stmt.setLong(2, request.getUserId());
+            stmt.setLong(3, request.getQuantityReq());
+            stmt.setString(4, request.getProductReq());
+            stmt.setDate(5, (Date) request.getDateReq());
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        request.setReqId(generatedKeys.getLong(1));
+                    }
+                }
+            }
         }
     }
 

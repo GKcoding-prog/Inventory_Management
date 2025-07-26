@@ -48,20 +48,40 @@ public class LoginController {
         }
         try {
             User user = userDAO.getUserByEmailAndPassword(email, password);
+            System.out.println("LoginController: user object after query: " + user);
             if (user != null) {
+                System.out.println("LoginController: userId=" + user.getUserId() + ", role=" + user.getRole() + ", email=" + user.getEmail());
                 com.ism.controllers.ProfilePageController.setCurrentUser(user);
+                String dashboardFXML;
+                switch (user.getRole()) {
+                    case "Boss":
+                        dashboardFXML = "/com/ism/BossDashboard.fxml";
+                        break;
+                    case "Employee":
+                        dashboardFXML = "/com/ism/EmployeeDashboard.fxml";
+                        break;
+                    case "Supplier":
+                        dashboardFXML = "/com/ism/SupplierDashboard.fxml";
+                        break;
+                    default:
+                        dashboardFXML = "/com/ism/HomePage.fxml";
+                        break;
+                }
                 try {
-                    javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/com/ism/HomePage.fxml"));
+                    javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource(dashboardFXML));
                     javafx.scene.Parent root = loader.load();
                     javafx.stage.Stage stage = (javafx.stage.Stage) loginButton.getScene().getWindow();
                     stage.setScene(new javafx.scene.Scene(root));
                 } catch (Exception ex) {
-                    showAlert("Error", "Failed to load Home Page: " + ex.getMessage());
+                    System.out.println("LoginController: Exception loading " + dashboardFXML + ": " + ex.getMessage());
+                    showAlert("Error", "Failed to load dashboard: " + ex.getMessage());
                 }
             } else {
+                System.out.println("LoginController: user is null after query");
                 showAlert("Login Failed", "Invalid credentials! Please try again.");
             }
         } catch (SQLException e) {
+            System.out.println("LoginController: SQLException: " + e.getMessage());
             showAlert("Database Error", "A database error occurred. Please try again later.");
         }
     }

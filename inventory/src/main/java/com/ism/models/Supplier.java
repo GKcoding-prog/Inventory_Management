@@ -14,4 +14,9 @@ public class Supplier {
     public long getSupplierId() { return supplierId; }
     public String getSupplierFname() { return supplierFname; }
     public String getContactInfo() { return contactInfo; }
+
+    public void setSupplierId(long long1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setSupplierId'");
+    }
 }

@@ -13,12 +13,18 @@ public class SupplierDAO {
     }
 
     public void addSupplier(Supplier supplier) throws SQLException {
-        String sql = "INSERT INTO SUPPLIER (SUPPLIER_ID, SUPPLIER_FNAME, CONTACT_INFO) VALUES (?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setLong(1, supplier.getSupplierId());
-            stmt.setString(2, supplier.getSupplierFname());
-            stmt.setString(3, supplier.getContactInfo());
-            stmt.executeUpdate();
+        String sql = "INSERT INTO SUPPLIER (SUPPLIER_FNAME, CONTACT_INFO) VALUES (?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, supplier.getSupplierFname());
+            stmt.setString(2, supplier.getContactInfo());
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        supplier.setSupplierId(generatedKeys.getLong(1));
+                    }
+                }
+            }
         }
     }
 

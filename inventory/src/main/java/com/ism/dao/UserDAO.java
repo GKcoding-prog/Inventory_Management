@@ -17,16 +17,22 @@ public class UserDAO {
     }
 
     public void addUser(User user) throws SQLException {
-        String sql = "INSERT INTO USERS (USER_ID, USER_FNAME, USER_EMAIL, USER_PWD, USER_ROLE, USER_PHONE, USER_STATUS) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setLong(1, user.getUserId());
-            stmt.setString(2, user.getFirstName());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getPassword());
-            stmt.setString(5, user.getRole());
-            stmt.setString(6, user.getPhone());
-            stmt.setString(7, user.getStatus());
+        String sql = "INSERT INTO USERS (USER_FNAME, USER_EMAIL, USER_PWD, USER_ROLE, USER_PHONE, USER_STATUS) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, user.getFirstName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPassword());
+            stmt.setString(4, user.getRole());
+            stmt.setString(5, user.getPhone());
+            stmt.setString(6, user.getStatus());
             int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        user.setUserId(generatedKeys.getLong(1));
+                    }
+                }
+            }
             System.out.println("User added successfully. Rows inserted: " + rowsInserted);
         }
     }
@@ -54,6 +60,16 @@ public class UserDAO {
                                 status
                         );
                     } else if ("Employee".equals(role)) {
+                        return new Employee(
+                                rs.getLong("USER_ID"),
+                                rs.getString("USER_FNAME"),
+                                rs.getString("USER_EMAIL"),
+                                rs.getString("USER_PWD"),
+                                phone,
+                                status
+                        );
+                    } else {
+                        // Fallback: return an Employee for unknown roles
                         return new Employee(
                                 rs.getLong("USER_ID"),
                                 rs.getString("USER_FNAME"),

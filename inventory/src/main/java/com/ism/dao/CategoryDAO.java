@@ -17,11 +17,17 @@ public class CategoryDAO {
     }
 
     public void addCategory(Category category) throws SQLException {
-        String sql = "INSERT INTO CATEGORY (CAT_ID, NAME_CAT) VALUES (?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setLong(1, category.getCatId());
-            stmt.setString(2, category.getNameCat());
-            stmt.executeUpdate();
+        String sql = "INSERT INTO CATEGORY (NAME_CAT) VALUES (?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, category.getNameCat());
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        category.setCatId(generatedKeys.getLong(1));
+                    }
+                }
+            }
         }
     }
 

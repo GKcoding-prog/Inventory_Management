@@ -17,13 +17,19 @@ public class ReportDAO {
     }
 
     public void addReport(Report report) throws SQLException {
-        String sql = "INSERT INTO REPORT (REPORT_ID, USER_ID, GENERATED_AT, CONTENT) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setLong(1, report.getReportId());
-            stmt.setLong(2, report.getUserId());
-            stmt.setDate(3, new java.sql.Date(report.getGeneratedAt().getTime()));
-            stmt.setString(4, report.getContent());
+        String sql = "INSERT INTO REPORT (USER_ID, GENERATED_AT, CONTENT) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmt.setLong(1, report.getUserId());
+            stmt.setDate(2, new java.sql.Date(report.getGeneratedAt().getTime()));
+            stmt.setString(3, report.getContent());
             int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        report.setReportId(generatedKeys.getLong(1));
+                    }
+                }
+            }
             System.out.println("Report added successfully. Rows inserted: " + rowsInserted);
         }
     }

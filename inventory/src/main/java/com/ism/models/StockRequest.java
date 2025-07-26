@@ -3,7 +3,7 @@ package com.ism.models;
 import java.util.Date;
 
 public class StockRequest {
-    private final long reqId;
+    private long reqId;
     private final long supplierId;
     private final long userId;
     private final long quantityReq;
@@ -17,6 +17,10 @@ public class StockRequest {
         this.quantityReq = quantityReq;
         this.productReq = productReq;
         this.dateReq = dateReq;
+    }
+
+    public void setReqId(long reqId) {
+        this.reqId = reqId;
     }
 
     public long getReqId() { return reqId; }
