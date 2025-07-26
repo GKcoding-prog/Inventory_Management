@@ -146,7 +146,7 @@ public class InventoryPageController {
     private void returnToHome() {
         try {
             Stage stage = (Stage) returnBtn.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/ism/EmployeeDashboard.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/ism/BossDashboard.fxml"));
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
