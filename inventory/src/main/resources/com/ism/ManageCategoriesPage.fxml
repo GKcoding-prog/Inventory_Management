@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.effect.DropShadow?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.ism.controllers.ManageCategoriesPageController" spacing="30" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e0eafc); -fx-background-radius: 10; -fx-padding: 32;">
+<VBox prefHeight="500.0" prefWidth="800.0" spacing="30" alignment="TOP_CENTER" style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e0eafc); -fx-background-radius: 10; -fx-padding: 32;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.ism.controllers.ManageCategoriesPageController">
     <children>
         <Label text="Manage Categories" textFill="#2e2e2e" style="-fx-font-size: 28; -fx-font-weight: bold;">
             <effect>

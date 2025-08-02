@@ -1,9 +1,9 @@
 package com.ism.models;
 
 public class Supplier {
-    private final long supplierId;
-    private final String supplierFname;
-    private final String contactInfo;
+    private long supplierId;
+    private String supplierFname;
+    private String contactInfo;
 
     public Supplier(long supplierId, String supplierFname, String contactInfo) {
         this.supplierId = supplierId;
@@ -16,7 +16,15 @@ public class Supplier {
     public String getContactInfo() { return contactInfo; }
 
     public void setSupplierId(long long1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setSupplierId'");
+        this.supplierId = long1;
     }
-}
+
+    public void setSupplierFname(String supplierFname) {
+        this.supplierFname = supplierFname;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+    }
+// End of Supplier class

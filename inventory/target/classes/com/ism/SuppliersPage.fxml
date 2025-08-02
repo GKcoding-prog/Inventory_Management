@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox prefHeight="500.0" prefWidth="800.0" spacing="30.0" alignment="CENTER" style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e0eafc);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ism.controllers.SuppliersPageController">
+  <children>
+    <Label text="SUPPLIERS LIST" textFill="#1a237e" style="-fx-font-weight: bold;">
+      <font>
+        <Font name="Segoe UI Semibold" size="32.0" />
+      </font>
+    </Label>
+    <Label text="View all registered suppliers." textFill="#3949ab" style="-fx-font-size: 18px;" />
+    <TableView fx:id="suppliersTable" prefWidth="700.0" prefHeight="300.0">
+      <columns>
+        <TableColumn fx:id="nameColumn" text="Name" prefWidth="200.0" />
+        <TableColumn fx:id="contactColumn" text="Contact Info" prefWidth="300.0" />
+      </columns>
+    </TableView>
+    <HBox alignment="CENTER" spacing="20.0">
+      <Button fx:id="returnBtn" text="Return to Home" style="-fx-background-color: #4f8cff; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10; -fx-padding: 8 24 8 24;" />
+    </HBox>
+    <HBox alignment="CENTER" spacing="20.0">
+      <Button fx:id="addBtn" text="Add Supplier" style="-fx-background-color: #43e97b; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" />
+      <Button fx:id="editBtn" text="Edit Supplier" style="-fx-background-color: #f7b731; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" />
+      <Button fx:id="deleteBtn" text="Delete Supplier" style="-fx-background-color: #ff5858; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" />
+    </HBox>
+    <Label text="© 2025 Klein and Gloria. All rights reserved." textFill="#888888" style="-fx-font-size: 13px;" />
+  </children>
+</VBox>

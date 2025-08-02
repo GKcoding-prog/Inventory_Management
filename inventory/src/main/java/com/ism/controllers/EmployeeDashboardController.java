@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 public class EmployeeDashboardController {
     @FXML private Button inventoryBtn;
     @FXML private Button stockRequestsBtn;
+    @FXML private Button viewSuppliersBtn;
     @FXML private Button profileBtn;
     @FXML private Button logoutBtn;
 
@@ -13,6 +14,7 @@ public class EmployeeDashboardController {
     private void initialize() {
         inventoryBtn.setOnAction(e -> navigate("/com/ism/InventoryPage.fxml"));
         stockRequestsBtn.setOnAction(e -> navigate("/com/ism/StockRequestsPage.fxml"));
+        viewSuppliersBtn.setOnAction(e -> navigate("/com/ism/SuppliersPage.fxml"));
         profileBtn.setOnAction(e -> navigate("/com/ism/ProfilePage.fxml"));
         logoutBtn.setOnAction(e -> navigate("/com/ism/LoginPage.fxml"));
     }

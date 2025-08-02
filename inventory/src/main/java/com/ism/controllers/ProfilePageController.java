@@ -38,15 +38,30 @@ public class ProfilePageController {
     private void returnToHome() {
         try {
             Stage stage = (Stage) returnBtn.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/com/ism/BossDashboard.fxml"));
+            String dashboardFXML = "/com/ism/BossDashboard.fxml";
+            User currentUser = ProfilePageController.getCurrentUser();
+            if (currentUser != null) {
+                String role = currentUser.getRole();
+                switch (role) {
+                    case "Boss":
+                        dashboardFXML = "/com/ism/BossDashboard.fxml";
+                        break;
+                    case "Employee":
+                        dashboardFXML = "/com/ism/EmployeeDashboard.fxml";
+                        break;
+                    case "Supplier":
+                        dashboardFXML = "/com/ism/SupplierDashboard.fxml";
+                        break;
+                }
+            }
+            Parent root = FXMLLoader.load(getClass().getResource(dashboardFXML));
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static Object getCurrentUser() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCurrentUser'");
+    public static User getCurrentUser() {
+        return currentUser;
     }
 }

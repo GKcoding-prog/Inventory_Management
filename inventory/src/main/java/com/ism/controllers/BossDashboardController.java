@@ -8,6 +8,7 @@ public class BossDashboardController {
     @FXML private Button manageUsersBtn;
     @FXML private Button manageCategoriesBtn;
     @FXML private Button stockRequestsBtn;
+    @FXML private Button manageSuppliersBtn;
     @FXML private Button profileBtn;
     @FXML private Button logoutBtn;
 
@@ -17,6 +18,7 @@ public class BossDashboardController {
         manageUsersBtn.setOnAction(e -> navigate("/com/ism/ManageUsersPage.fxml"));
         manageCategoriesBtn.setOnAction(e -> navigate("/com/ism/ManageCategoriesPage.fxml"));
         stockRequestsBtn.setOnAction(e -> navigate("/com/ism/StockRequestsPage.fxml"));
+        manageSuppliersBtn.setOnAction(e -> navigate("/com/ism/SuppliersPage.fxml"));
         profileBtn.setOnAction(e -> navigate("/com/ism/ProfilePage.fxml"));
         logoutBtn.setOnAction(e -> navigate("/com/ism/LoginPage.fxml"));
     }

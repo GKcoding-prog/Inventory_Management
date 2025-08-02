@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="TOP_CENTER" spacing="30.0" style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e0eafc);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ism.controllers.InventoryPageController">
+<VBox prefHeight="500.0" prefWidth="800.0" spacing="30.0" alignment="CENTER" style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e0eafc);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ism.controllers.InventoryPageController">
   <children>
     <Label text="Inventory Overview" textFill="#2e2e2e" style="-fx-font-weight: bold;">
       <font>
@@ -20,10 +20,10 @@
     </Label>
     <TableView fx:id="inventoryTable" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #b0c4de; -fx-table-cell-border-color: #e0eafc;">
       <columns>
-        <TableColumn fx:id="colName" text="Product Name" prefWidth="220.0" />
-        <TableColumn fx:id="colCategory" text="Category" prefWidth="160.0" />
-        <TableColumn fx:id="colQuantity" text="Quantity" prefWidth="120.0" />
-        <TableColumn fx:id="colSupplier" text="Supplier" prefWidth="180.0" />
+        <TableColumn fx:id="colName" text="Product Name" prefWidth="180.0" />
+        <TableColumn fx:id="colCategory" text="Category" prefWidth="120.0" />
+        <TableColumn fx:id="colQuantity" text="Quantity" prefWidth="100.0" />
+        <TableColumn fx:id="colPrice" text="Price" prefWidth="100.0" />
       </columns>
     </TableView>
     <HBox alignment="CENTER" spacing="20.0">
@@ -34,5 +34,6 @@
     <HBox alignment="CENTER" spacing="20.0">
       <Button fx:id="returnBtn" text="Return to Home" style="-fx-background-color: #4f8cff; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10; -fx-padding: 8 24 8 24;" />
     </HBox>
+    <Label text="© 2025 Klein and Gloria. All rights reserved." textFill="#888888" style="-fx-font-size: 13px;" />
   </children>
 </VBox>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox prefHeight="500.0" prefWidth="800.0" spacing="30.0" alignment="CENTER" style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e0eafc);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ism.controllers.ManageUsersPageController">
+  <children>
+    <Label text="MANAGE USERS" textFill="#1a237e" style="-fx-font-weight: bold;">
+      <font>
+        <Font name="Segoe UI Semibold" size="32.0" />
+      </font>
+    </Label>
+    <Label text="Add, edit, or delete users." textFill="#3949ab" style="-fx-font-size: 18px;" />
+    <AnchorPane prefHeight="400.0" prefWidth="700.0">
+      <children>
+        <TableView fx:id="usersTable" layoutX="0.0" layoutY="0.0" prefWidth="700.0" prefHeight="300.0">
+          <columns>
+            <TableColumn fx:id="usernameColumn" text="Username" prefWidth="200.0" />
+            <TableColumn fx:id="roleColumn" text="Role" prefWidth="150.0" />
+            <TableColumn fx:id="emailColumn" text="Email" prefWidth="200.0" />
+          </columns>
+        </TableView>
+        <Button fx:id="addUserBtn" layoutX="20.0" layoutY="320.0" prefWidth="120.0" prefHeight="40.0" text="Add User" style="-fx-background-color: #43e97b; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" />
+        <Button fx:id="editUserBtn" layoutX="160.0" layoutY="320.0" prefWidth="120.0" prefHeight="40.0" text="Edit User" style="-fx-background-color: #f7b731; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" />
+        <Button fx:id="deleteUserBtn" layoutX="300.0" layoutY="320.0" prefWidth="120.0" prefHeight="40.0" text="Delete User" style="-fx-background-color: #ff5858; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" />
+        <Button fx:id="backBtn" layoutX="560.0" layoutY="320.0" prefWidth="120.0" prefHeight="40.0" text="Back" style="-fx-background-color: #4f8cff; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" />
+      </children>
+    </AnchorPane>
+    <Label text="© 2025 Klein and Gloria. All rights reserved." textFill="#888888" style="-fx-font-size: 13px;" />
+  </children>
+</VBox>
