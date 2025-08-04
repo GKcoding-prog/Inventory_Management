@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox prefHeight="500.0" prefWidth="800.0" spacing="30.0" alignment="CENTER" style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e0eafc);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ism.controllers.SuppliersPageController">
+
+<VBox alignment="CENTER" prefHeight="530.0" prefWidth="785.0" spacing="30.0" style="-fx-background-color: linear-gradient(to bottom, #0f0f0f, #1f1f1f, #a27b5c);" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ism.controllers.SuppliersPageController">
   <children>
-    <Label text="SUPPLIERS LIST" textFill="#1a237e" style="-fx-font-weight: bold;">
+    <Label style="-fx-font-weight: bold;" text="SUPPLIERS LIST" textFill="#f0f1f2">
       <font>
         <Font name="Segoe UI Semibold" size="32.0" />
       </font>
     </Label>
-    <Label text="View all registered suppliers." textFill="#3949ab" style="-fx-font-size: 18px;" />
-    <TableView fx:id="suppliersTable" prefWidth="700.0" prefHeight="300.0">
+    <Label style="-fx-font-size: 18px;" text="View all registered suppliers." textFill="#f0f1f2" />
+    <TableView fx:id="suppliersTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="745.0" style="-fx-background-color: #b0a28a; -fx-border-radius: 20;">
       <columns>
-        <TableColumn fx:id="nameColumn" text="Name" prefWidth="200.0" />
-        <TableColumn fx:id="contactColumn" text="Contact Info" prefWidth="300.0" />
+        <TableColumn fx:id="nameColumn" prefWidth="390.0" text="Name" />
+        <TableColumn fx:id="contactColumn" prefWidth="409.0" text="Contact Info" />
       </columns>
     </TableView>
-    <HBox alignment="CENTER" spacing="20.0">
-      <Button fx:id="returnBtn" text="Return to Home" style="-fx-background-color: #4f8cff; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10; -fx-padding: 8 24 8 24;" />
+    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
+      <Button fx:id="addBtn" style="-fx-background-color: #43e97b; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" text="Add Supplier" />
+      <Button fx:id="editBtn" style="-fx-background-color: #f7b731; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" text="Edit Supplier" />
+      <Button fx:id="deleteBtn" style="-fx-background-color: #ff5858; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" text="Delete Supplier" />
+      <Button fx:id="returnBtn" style="-fx-background-color: #4f8cff; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10; -fx-padding: 8 24 8 24;" text="Back" HBox.hgrow="NEVER">
+            <HBox.margin>
+               <Insets left="167.0" />
+            </HBox.margin></Button>
+         <VBox.margin>
+            <Insets top="9.0" />
+         </VBox.margin>
     </HBox>
-    <HBox alignment="CENTER" spacing="20.0">
-      <Button fx:id="addBtn" text="Add Supplier" style="-fx-background-color: #43e97b; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" />
-      <Button fx:id="editBtn" text="Edit Supplier" style="-fx-background-color: #f7b731; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" />
-      <Button fx:id="deleteBtn" text="Delete Supplier" style="-fx-background-color: #ff5858; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" />
-    </HBox>
-    <Label text="© 2025 Klein and Gloria. All rights reserved." textFill="#888888" style="-fx-font-size: 13px;" />
+    <HBox alignment="CENTER" spacing="20.0" />
+    <Label style="-fx-font-size: 13px;" text="© 2025 Klein and Gloria. All rights reserved." textFill="#888888" />
   </children>
 </VBox>

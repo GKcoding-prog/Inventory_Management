@@ -52,6 +52,7 @@ public class LoginController {
             if (user != null) {
                 System.out.println("LoginController: userId=" + user.getUserId() + ", role=" + user.getRole() + ", email=" + user.getEmail());
                 com.ism.controllers.ProfilePageController.setCurrentUser(user);
+                showAlert("Login Successful", "Welcome, " + user.getFirstName() + "! You have logged in as " + user.getRole() + ".");
                 String dashboardFXML;
                 switch (user.getRole().toLowerCase()) {
                     case "boss":

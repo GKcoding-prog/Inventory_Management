@@ -20,7 +20,6 @@ com\ism\dao\AppearDAO.class
 com\ism\controllers\ProductFormDialog$1.class
 com\ism\controllers\HomePageController.class
 com\ism\controllers\BossDashboardController.class
-com\ism\controllers\LoginController.class
 com\ism\dao\UserDAO.class
 com\ism\controllers\InventoryPageController$ProductRow.class
 com\ism\models\Deliver.class

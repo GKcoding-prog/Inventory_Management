@@ -24,6 +24,14 @@ public class EmployeeDashboardController {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource(fxml));
             javafx.scene.Parent root = loader.load();
             javafx.stage.Stage stage = (javafx.stage.Stage) inventoryBtn.getScene().getWindow();
+            // Show logout notice if navigating to LoginPage.fxml
+            if (fxml.equals("/com/ism/LoginPage.fxml")) {
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+                alert.setTitle("Logout Successful");
+                alert.setHeaderText(null);
+                alert.setContentText("You have been logged out successfully.");
+                alert.showAndWait();
+            }
             stage.setScene(new javafx.scene.Scene(root));
         } catch (Exception ex) {
             System.out.println("EmployeeDashboardController: Navigation error: " + ex.getMessage());
